@@ -1,0 +1,121 @@
+
+#include <iostream>
+using namespace std;
+
+typedef struct Node
+{
+    int num;
+    struct Node *ahead;
+    struct Node *next;
+} Node;
+
+Node *Creat (int N);
+Node *Search (Node *head, int P);
+Node *Release (Node *head, int M);
+void Search_m (int k, int N);
+
+int main (void)
+{
+    int N, P, M, k;
+    for (int j =0; j<7; j++) {
+    cout << "Please input three int numbers : ";
+    cin >> N >> P >> M;
+
+    Node *head = Creat (N);
+    head = Search (head, P);
+    while (head->next != head)
+        head = Release (head, M);
+    cout << endl;
+    cout << "The winner : ";
+    cout << head->num << endl;
+
+    cin >> k;
+    Search_m (k, N);}
+    return 0;
+}
+
+Node *Creat (int N)
+{
+    int n = 1;
+    Node *node = new Node;
+    node->num = n;
+    Node *head = node;
+    Node *tail = head;
+    while (n ++ < N)
+    {
+        node = new Node;
+        node->num = n;
+        tail->next = node;
+        node->ahead = tail;
+        tail = tail->next;
+    }
+    tail->next = head;
+    head->ahead = tail;
+    return head;
+}
+
+Node *Search (Node *head, int P)
+{
+    while (head->num != P)
+        head = head->next;
+    return head;
+}
+
+Node *Release (Node *head, int M)
+{
+    Node *temp = head;
+    int count = 1;
+    while (count < M)
+    {
+        temp = temp->next;
+        count ++;
+    }
+    temp->ahead->next = temp->next;
+    temp->next->ahead = temp->ahead;
+    cout << temp->num << ' ';
+    head = temp->next;
+    delete temp;
+    return head;
+}
+
+void Search_m (int k, int N)
+{
+    Node *t;
+    int i, a[20], c, b[20], n, m;
+    for (i = 0; i < k; i ++)
+        cin >> a[i];
+    for (c = 1; c <= N; c ++)
+    {
+        i = 0;
+        n = 0;
+        t = Creat(N);
+        while (t->next != t)
+        {
+            Node *temp = t;
+            int count = 1;
+            while (count < c)
+            {
+                temp = temp->next;
+                count ++;
+            }
+            temp->ahead->next = temp->next;
+            temp->next->ahead = temp->ahead;
+            b[i] = temp->num;
+            t = temp->next;
+            i ++;
+        }
+        b[i] = t->num;
+        for (i=N-k; i<N; i++) {
+            for (m = 0; m<k; m++) {
+                if (b[i] == a[m])
+                    n++;
+            }
+        }
+
+        if (n == k)
+        {
+            cout << c << endl;
+            break;
+        }
+    }
+}

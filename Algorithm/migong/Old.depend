@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1456478490 source:f:\codeblock\old\main.cpp
+	"Maze.h"
+
+1456478423 f:\codeblock\old\include\maze.h
+	<iostream>
+	<conio.h>
+	<stdlib.h>
+
+1456478442 source:f:\codeblock\old\src\maze.cpp
+	"Maze.h"
+	<ctime>
+	<cstdlib>
+
